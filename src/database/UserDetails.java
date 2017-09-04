@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 import javax.servlet.ServletContext;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 
 @WebServlet("/UserDetails")
@@ -16,7 +18,7 @@ public class UserDetails extends HttpServlet {
 
    
     
-	
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	       
@@ -47,8 +49,9 @@ public class UserDetails extends HttpServlet {
 	         sql = "SELECT id, firstname, lastname FROM customer";
 	         ResultSet rs = stmt.executeQuery(sql);
            
-	         String s = "";
+	     
 	         
+	         JSONArray arr = new JSONArray();  
 	         // Extract data from result set
 	         while(rs.next()){
 	            //Retrieve by column name
@@ -59,15 +62,24 @@ public class UserDetails extends HttpServlet {
 		         //Create a JSON object
 	        	 if(rs.isLast())
 	        	 {
-	        		 s = s + "{" + "\"id\"" + ":"+ "\"" + id + "\"" + ", " + "\"first\"" + ":"+ "\"" + first + "\"" +  ", " + "\"last\""+ ":"+ "\"" + last + "\"" + "}" ;
+	        	
+	        		 JSONObject obj=new JSONObject();	        	
+	        		 obj.put("id",id);    
+	        		 obj.put("first",first);    
+	        		 obj.put("last",last); 
+	        		 arr.add(obj);
 	        	 }
 	        	 else {
-	        		 s = s + "{" + "\"id\"" + ":"+ "\"" + id + "\"" + ", " + "\"first\"" + ":"+ "\"" + first + "\"" +  ", " + "\"last\""+ ":"+ "\"" + last + "\"" + "}," ;
+	        		 JSONObject obj=new JSONObject();
+	        		 obj.put("id",id);    
+	        		 obj.put("first",first);    
+	        		 obj.put("last",last); 
+	        		 arr.add(obj);
 	        	 }
 	           
 	         }
-	         System.out.println("["+s+"]");
-	         out.print("["+s+"]");
+	         System.out.println(arr);
+	         out.print(arr);
 	        
 
 	         // Clean-up environment
