@@ -23,12 +23,15 @@ public class Login extends HttpServlet {
 	      
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println(username + password);		
+
 	
-			if(username.equals("aditya@gmail.com")  && password.equals("asdf")) {			
+			if(username.equals("aditya@gmail.com")  && password.equals("asdf")) {
+				
+		     System.out.println("new session set");
 		     HttpSession session = request.getSession(true);
 			 session.setAttribute("username", username); 
 			 out.print("{ "+"\"status\":"+"\"true\""+ "}");
+			 
 			}
 		   else {			
 			out.print("{ "+"\"status\":"+"\"false\""+ "}");

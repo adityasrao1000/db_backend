@@ -13,10 +13,11 @@ import javax.servlet.http.HttpSession;
 public class SessionValidate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	protected void get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		
-		response.setContentType("application/json");
+		 // Set response content type
+	    response.setContentType("application/json");
 	    response.addHeader("Access-Control-Allow-Origin", "*");
 	    HttpSession session = request.getSession(false);
 	    
