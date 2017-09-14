@@ -17,8 +17,7 @@ public class UserDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
    
-    
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	       
@@ -95,8 +94,6 @@ public class UserDetails extends HttpServlet {
 	    	  
 	         e.printStackTrace();
 	         
-	      } finally {
-	        
 	      } 
 	}
 

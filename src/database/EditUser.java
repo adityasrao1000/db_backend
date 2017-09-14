@@ -13,13 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 
 @WebServlet("/EditUser")
 public class EditUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
@@ -34,7 +35,7 @@ public class EditUser extends HttpServlet {
 	      response.setContentType("application/json");
 	      response.addHeader("Access-Control-Allow-Origin", "*");
 	      PrintWriter out=response.getWriter();
-	    
+	      JSONObject obj=new JSONObject();
 	  
 	      
 	    
@@ -58,13 +59,16 @@ public class EditUser extends HttpServlet {
 	         
 	         int i=stmt.executeUpdate();
 	         
-	         if(i<=0) {	     	        	 
+	         if(i<=0) {	 
+	        	 obj.put("state", "failed");
 	        	 response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
-	        	 out.print("{ \"state\" : \"failed\" }");
+	        	 out.print(obj);
 	         }else 
-	         {	 response.setStatus(HttpServletResponse.SC_OK);      	 
+	         {	 
+	        	 obj.put("state", "ok");
+	        	 response.setStatus(HttpServletResponse.SC_OK);      	 
 	             System.out.println(i+" records affected"); 
-	             out.print("{ \"state\" : \"ok\" }");
+	             out.print(obj);
 	         }
 	         	      	        
 
@@ -72,17 +76,13 @@ public class EditUser extends HttpServlet {
 	         
 	         stmt.close();
 	         conn.close();
-	      } catch(SQLException se) {
+	      } catch(SQLException se){
 	    	  out.print("{ \"state\" : \"failed\" }");
 	         //Handle errors for JDBC
 	         se.printStackTrace();
 	         
-	      } catch(Exception e) {
-	    	  
-	         e.printStackTrace();
-	         
-	      } finally {
-	        
+	      } catch(Exception e) {	    	  
+	         e.printStackTrace();	         
 	      } 
 	}
 

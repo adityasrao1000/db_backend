@@ -59,9 +59,6 @@ public class DeleteUser extends HttpServlet {
 	             out.print("{ \"state\" : \"ok\" }");
 	         }
 	         
-	      
-	        
-
 	         // Clean-up environment
 	         
 	         stmt.close();
@@ -71,13 +68,9 @@ public class DeleteUser extends HttpServlet {
 	         //Handle errors for JDBC
 	         se.printStackTrace();
 	         
-	      } catch(Exception e) {
-	    	  
-	         e.printStackTrace();
-	         
-	      } finally {
-	        
-	      } 
+	      } catch(Exception e) { 
+	         e.printStackTrace();	         
+	      }
 	}
 
 }
